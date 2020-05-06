@@ -126,7 +126,7 @@ and open the template in the editor.
                         <br>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="index.jsp">GISIC</a>
+                                <a href="index.jsp">GISIC </a>
                             </li>
                             <li class="breadcrumb-item">
                                 <a href="forealzheimer.jsp">Fore-Alzheimer</a>
