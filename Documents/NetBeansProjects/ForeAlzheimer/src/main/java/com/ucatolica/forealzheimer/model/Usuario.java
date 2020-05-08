@@ -30,8 +30,8 @@ public class Usuario {
         this.Num_documento = Num_documento;
     }
     
-    public Usuario(int identificacion, String Contrasena) {
-        this.Num_documento = identificacion;
+    public Usuario(String email, String Contrasena) {
+        this.Email = email;
         this.Contrasena = Contrasena;
     }
     
@@ -117,8 +117,43 @@ public class Usuario {
     public void setContrasena(String Contrasena) {
         this.Contrasena = Contrasena;
     }
-    
-    
-    
-    
+
+    public void setTipo_documento(String Tipo_documento) {
+        this.Tipo_documento = Tipo_documento;
+    }
+
+    public void setNombres(String Nombres) {
+        this.Nombres = Nombres;
+    }
+
+    public void setApellido1(String Apellido1) {
+        this.Apellido1 = Apellido1;
+    }
+
+    public void setApellido2(String Apellido2) {
+        this.Apellido2 = Apellido2;
+    }
+
+    public void setTel_fijo(String Tel_fijo) {
+        this.Tel_fijo = Tel_fijo;
+    }
+
+    public void setCelular(String Celular) {
+        this.Celular = Celular;
+    }
+
+    public void setRol1(String Rol1) {
+        this.Rol1 = Rol1;
+    }
+
+    public void setRol2(String Rol2) {
+        this.Rol2 = Rol2;
+    }
+
+    public void setRol3(String Rol3) {
+        this.Rol3 = Rol3;
+    }
+    public void setEmail(String Email) {
+        this.Email = Email;
+    }    
 }

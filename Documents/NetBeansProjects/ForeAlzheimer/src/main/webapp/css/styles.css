@@ -140,6 +140,7 @@ strong {
 
 small {
   font-size: 80%;
+  
 }
 
 sub,
@@ -4354,6 +4355,7 @@ input[type=button].btn-block {
   flex: 1 1 auto;
   min-height: 1px;
   padding: 1.25rem;
+  background-color:#f7f9fa;
 }
 
 .card-title {
@@ -4379,7 +4381,7 @@ input[type=button].btn-block {
 .card-header {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: #c5d6e3;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 .card-header:first-child {
@@ -9988,9 +9990,11 @@ body {
 #layoutAuthentication #layoutAuthentication_content {
   min-width: 0;
   flex-grow: 1;
+  background-color:#09314f; 
 }
 #layoutAuthentication #layoutAuthentication_footer {
   min-width: 0;
+  
 }
 
 #layoutSidenav {

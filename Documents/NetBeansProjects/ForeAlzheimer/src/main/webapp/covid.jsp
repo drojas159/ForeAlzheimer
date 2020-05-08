@@ -3,6 +3,7 @@
     Created on : 4/05/2020, 3:41:42 p. m.
     Author     : Daniela
 --%>
+<%@page import="com.ucatolica.forealzheimer.model.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -126,7 +127,13 @@
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small"> Conectado como:</div>
-                    Nombre de Usuario
+                    <%
+                        HttpSession sesion = request.getSession();
+                        Usuario usr = (Usuario) sesion.getAttribute("usuario");
+                        String name= usr.getNombres()+" "+usr.getApellido1()+" "+usr.getApellido2();
+                        System.out.println("index.jsp"+name);
+                    %>
+                    <%= name %>
                     <!--configurar -->
                 </div>
             </nav>

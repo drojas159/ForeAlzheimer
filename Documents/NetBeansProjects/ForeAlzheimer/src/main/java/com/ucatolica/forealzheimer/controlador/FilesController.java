@@ -101,11 +101,6 @@ public class FilesController extends HttpServlet {
                 ProcessFile(request, action);
                 RedirectModel(request, response);
                 break;
-            case "ETAVI":
-
-                // ProcessFile(request, response,action);
-                //RedirectModel(request, response);
-                break;
 
             default:
                 consultar_doc(request, response, action);
@@ -141,18 +136,6 @@ public class FilesController extends HttpServlet {
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/modelo.jsp");
         dispatcher.forward(request, response);
-    }
-
-    private void RedirectConsultarDoc(HttpServletRequest request, HttpServletResponse response, String action) throws ServletException, IOException {
-        HttpSession sesion = request.getSession();
-        sesion.setAttribute("action", action);
-        switch (action) {
-            case "UploadFile": {
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/ConsultarDoc.jsp");
-                dispatcher.forward(request, response);
-                break;
-            }
-        }
     }
 
     void consultar_doc(HttpServletRequest request, HttpServletResponse response, String argument) throws ServletException, IOException {
@@ -226,6 +209,7 @@ public class FilesController extends HttpServlet {
     }
 
     private void almacenar_doc(HttpServletRequest request, HttpServletResponse response, String documento) throws IOException, ServletException {
+        
         HttpSession sesion = request.getSession();
         sesion.setAttribute("doc", documento);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/CargarDatosEEG.jsp");

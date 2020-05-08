@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="com.ucatolica.forealzheimer.model.Usuario"%>
 <%@page import="java.util.List"%>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="com.ucatolica.forealzheimer.controlador.FilesController" %>
@@ -115,7 +116,13 @@ and open the template in the editor.
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small"> Conectado como:</div>
-                        Nombre de Usuario
+                        <%
+                        HttpSession sesion = request.getSession();
+                        Usuario usr = (Usuario) sesion.getAttribute("usuario");
+                        String name= usr.getNombres()+" "+usr.getApellido1()+" "+usr.getApellido2();
+                        System.out.println("index.jsp"+name);
+                    %>
+                    <%= name %>
                         <!--configurar -->
                     </div>
                 </nav>
