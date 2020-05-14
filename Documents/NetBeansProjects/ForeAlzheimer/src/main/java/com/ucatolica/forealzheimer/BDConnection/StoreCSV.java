@@ -7,6 +7,7 @@ package com.ucatolica.forealzheimer.BDConnection;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.eq;
 import java.io.IOException;
 import java.io.InputStream;
 import static java.lang.Float.parseFloat;
@@ -23,7 +24,7 @@ import org.bson.Document;
  * @author Daniela
  */
 public class StoreCSV {
-
+       
     public StoreCSV() {
     }
 
@@ -47,6 +48,17 @@ public class StoreCSV {
 
         datos.remove(0);
         return datos;
+    }
+    
+    public Document PrintResult(String num_doc) throws IOException {
+        MongoConnection con = new MongoConnection();
+        MongoDatabase database = con.Connection();
+        MongoCollection<Document> collection = database.getCollection("RF_RESULT");
+        
+        Document cursor = collection.find(eq("_id", num_doc)).first();
+        System.out.println("DANIELA PRIBANDO EL STORECSV :"+cursor.toJson());
+        
+        return cursor;
     }
 
     public void StoreCsv(String doc, List<Part> archivos, String action) throws IOException {

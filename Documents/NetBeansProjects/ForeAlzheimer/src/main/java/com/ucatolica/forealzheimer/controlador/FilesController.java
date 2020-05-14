@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import org.bson.Document;
 
 /**
  *
@@ -101,6 +102,10 @@ public class FilesController extends HttpServlet {
                 ProcessFile(request, action);
                 RedirectModel(request, response);
                 break;
+            
+            case "Results":
+                GetResult(request, response);
+                break;
 
             default:
                 consultar_doc(request, response, action);
@@ -116,7 +121,7 @@ public class FilesController extends HttpServlet {
         String document = (String) doc.getAttribute("doc");
 
         List<Part> archivos = new ArrayList<>();
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= 6; i++) {
             archivos.add(request.getPart("csv" + i));
         }
         //System.out.println("CSV"+1+archivos);
@@ -128,14 +133,13 @@ public class FilesController extends HttpServlet {
 
     private void RedirectETCSV(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/CargarDatosET.jsp");
-        dispatcher.forward(request, response);
+    
+        response.sendRedirect(request.getContextPath() + "/CargarDatosET.jsp");
     }
 
     private void RedirectModel(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/modelo.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/modelo.jsp");
+        
     }
 
     void consultar_doc(HttpServletRequest request, HttpServletResponse response, String argument) throws ServletException, IOException {
@@ -143,15 +147,15 @@ public class FilesController extends HttpServlet {
         UsuarioDAO dao = new UsuarioDAO();
         int Num_documento = parseInt(request.getParameter("doc"));
         Usuario usr = (Usuario) dao.consultar(Num_documento);
-
+        HttpSession sesion = request.getSession();
+        sesion.setAttribute("argument", argument);
         if (usr.getNum_documento() == Num_documento) {
             almacenar_doc(request, response, request.getParameter("doc"));
         } else {
-            HttpSession sesion = request.getSession();
-            sesion.setAttribute("argument", argument);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Paciente_Error.jsp");
-            dispatcher.forward(request, response);
+            
+            
+            response.sendRedirect(request.getContextPath() + "/Paciente_Error.jsp");
+            
 
         }
     }
@@ -209,14 +213,29 @@ public class FilesController extends HttpServlet {
     }
 
     private void almacenar_doc(HttpServletRequest request, HttpServletResponse response, String documento) throws IOException, ServletException {
+        HttpSession arg = request.getSession();
+        String argument = (String) arg.getAttribute("argument");
         
-        HttpSession sesion = request.getSession();
-        sesion.setAttribute("doc", documento);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/CargarDatosEEG.jsp");
-        dispatcher.forward(request, response);
+        arg.setAttribute("doc", documento);
+        
+        //System.out.println(argument);
+        switch (argument) {
+            case "Carga": 
+                response.sendRedirect(request.getContextPath() + "/CargarDatosEEG.jsp");
+                break;
+            case "Recalcula":
+                response.sendRedirect(request.getContextPath() + "/CargarDatosEEG.jsp");
+                break;
+            case "Consulta":
+                response.sendRedirect(request.getContextPath() + "/ModelResult.jsp");
+                break;
+        }
+        
+    }
+        //response.sendRedirect(request.getContextPath() + "/CargarDatosEEG.jsp");
 //        response.sendRedirect("CargarDatos_p1.jsp");
 
-    }
+    
 
     /**
      * Returns a short description of the servlet.
@@ -227,5 +246,26 @@ public class FilesController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    public List<String> GetResult(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession doc = request.getSession();
+        String document = (String) doc.getAttribute("doc");
+        
+        StoreCSV obj =new StoreCSV();
+        
+        Document cursor=obj.PrintResult(document);
+        List<String> result=new ArrayList<>();
+        
+        String valor= cursor.get("RESULT").toString();
+        
+        
+        result.add(valor);
+        result.add(valor);
+        //result.add((String) cursor.get("RESULT"));
+        /*if (result.get(0).equals("") || result.get(1).equals("")){
+            response.sendRedirect(request.getContextPath() + "/NoResult.jsp");
+        }*/
+        return result;
+    }
 
 }

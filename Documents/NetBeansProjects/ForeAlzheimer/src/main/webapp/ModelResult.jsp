@@ -1,18 +1,22 @@
-<%-- 
-    Document   : consultarDoc
-    Created on : 5/05/2020, 7:13:45 p. m.
-    Author     : Daniela
---%>
-
+<%@page import="com.ucatolica.forealzheimer.controlador.UserController"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="com.ucatolica.forealzheimer.controlador.FilesController"%>
 <%@page import="com.ucatolica.forealzheimer.model.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/sesion.jsp" %>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<%    
+    String name = usr.getNombres() + " " + usr.getApellido1() + " " + usr.getApellido2();
+    FilesController controlFile = new FilesController();
+    UserController controlUsr = new UserController();
+    Usuario pat = new Usuario();
+    int numDoc = (int) sesion.getAttribute("doc");
+    List<String> result = new ArrayList<>();
+    result = controlFile.GetResult(request, response);
+    pat = controlUsr.consultarPaciente(numDoc);
+    
+%>
 <html lang="es">
     <head>
         <meta charset="utf-8" />
@@ -77,12 +81,14 @@ and open the template in the editor.
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Fore-Alzheimer</div>
+
                             <a class="nav-link" href="ConsultarDoc.jsp">
                                 <div class="sb-nav-link-icon">
                                     <i class='fas fa-cloud-upload-alt' style='color:#212529'></i>
                                 </div>
                                 Cargar Datos
                             </a>
+
                             <a class="nav-link" href="ConsultarDocPred.jsp">
                                 <div class="sb-nav-link-icon">
                                     <i class="fas fa-fw fa-signal" style='color:#212529'></i>
@@ -93,7 +99,7 @@ and open the template in the editor.
                                 <div class="sb-nav-link-icon">
                                     <i class="far fa-fw fa-file-alt" style='color:#212529'></i>
                                 </div>
-                                Reportes
+                                Resultados
                             </a>
 
 
@@ -113,12 +119,8 @@ and open the template in the editor.
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small"> Conectado como:</div>
-                        <%
-                        
-                        String name= usr.getNombres()+" "+usr.getApellido1()+" "+usr.getApellido2();
-                        System.out.println("index.jsp"+name);
-                    %>
-                    <%= name %>
+
+                        <%= name%>
                         <!--configurar -->
                     </div>
                 </nav>
@@ -138,24 +140,60 @@ and open the template in the editor.
                             <li class="breadcrumb-item">
                                 <a href="forealzheimer.jsp">Fore-Alzheimer</a>
                             </li>
+
                             <li class="breadcrumb-item active">
-                                <i class="fas fa-fw fa-signal"></i>
-                                Ejecutar Modelos </li>
+                                <i class="far fa-fw fa-file-alt"></i>
+                                Resultados</li>
                         </ol>
 
-                        <div class="jumbotron">
-                            <h3>Recalcular Predicciones</h3>
-                            <br>
-                            <form   name="formulario" method="post" enctype="multipart/form-data"> <!--style="display:none;"--> 
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                Predicciones del Paciente
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <tbody>
+                                            <tr>
+                                                <th> Tipo de Documento </th>
+                                                <td> <%= pat.getTipo_documento() %></td>
+                                            </tr>
+                                            <tr>
+                                                <th> Número de Documento</th>
+                                                <td> <%= pat.getNombres() %> </td>
+                                            </tr>
+                                            <tr>
+                                                <th> Nombre y Apellidos</th>
+                                                <% String namePat = pat.getNombres()+" "+pat.getApellido1()+" "+pat.getApellido2(); %>
+                                                <td> <%= namePat %></td>
 
-                                <label>Inserte el documento del paciente:</label>
-                                <input type="number" class="form-control" name="doc" placeholder="Documento del paciente" required>
-                                <br><br><!--<input type="submit" lass="btn btn-primary btn-lg active" value="Siguiente">-->
-                                <div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"     >
-                                    <button type="submit" class="btn btn-primary btn-lg" onclick="consultarDoc('Recalcula')">Cargar</button>
+                                            </tr>
+                                            <tr>
+                                                <th>Celular</th>
+                                                <td> <%= pat.getCelular() %></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Teléfono Fijo</th>
+                                                <td> <%= pat %></td>
+                                            </tr>
+                                            <tr>
+                                                <th> Correo Electrónico</th>
+                                                <td> <%= pat %></td>
+                                            </tr>
+
+                                            <tr>
+                                                <th> Resultado Modelo 1</th>
+                                                <td> <%= result.get(0) %></td>
+                                            </tr>
+                                            <tr>
+                                                <th> Resultado Modelo 2</th>
+                                                <td> <%= result.get(1) %></td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
                                 </div>
-
-                            </form>
+                            </div>
                         </div>
                 </main>
 
@@ -184,7 +222,4 @@ and open the template in the editor.
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="assets/demo/datatables-demo.js"></script>
     </body>
-
-
-   
 </html>

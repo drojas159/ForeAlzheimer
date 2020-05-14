@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="com.ucatolica.forealzheimer.controlador.UserController" %>
 <!DOCTYPE html>
@@ -11,6 +12,7 @@
         <title>Ingresa a GISIC</title>
         <link href="css/styles.css" rel="stylesheet" />
         <script type="text/javascript" src="./js/loginScript.js" ></script>
+        <link rel="icon" type="image/jpg" href="./assets/img/ICON.png" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="bg-primary">
@@ -21,21 +23,25 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header">
-                                        <h3 class="text-center font-weight-light my-4">GISIC</h3>
+                                    <div class="card-header-login">
+
+                                        <img class="card-img" src="./assets/img/logoGisic.jpeg" />
+
+
                                     </div>
                                     <div class="card-body">
                                         <form name="login_form" method="post"
                                               action="UserController?action=login">
                                             <div class="form-group">
-                                                <label class="small mb-1" for="inputEmailAddress">Número de documento</label>
-                                                <input class="form-control py-4" name="inputDoc" type="number" 
-                                                       placeholder="Número de documento" required />
+                                                <label class="small mb-1" for="inputEmailAddress">Email:</label>
+                                                <input class="form-control" name="inputEmail" 
+                                                       type="email" aria-describedby="emailHelp" 
+                                                       placeholder="Email" required/>
                                             </div>
                                             <div class="form-group">
-                                                <label class="small mb-1" for="inputPassword">Contraseña</label>
-                                                <input class="form-control py-4" name="inputPassword" type="password" 
-                                                       placeholder="Contraseña" required />
+                                                <label class="small mb-1" for="inputPassword">Password: </label>
+                                                <input class="form-control" name="inputPassword" type="password" 
+                                                       placeholder="Password" required />
                                             </div>
                                             <!--<div class="form-group">
                                                 <div class="custom-control custom-checkbox"><input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" /><label class="custom-control-label" for="rememberPasswordCheck">Remember password</label></div>
@@ -52,22 +58,22 @@
                                                             UserController obj = new UserController();
                                                             HttpSession sesion = request.getSession();
                                                             String argument = (String) sesion.getAttribute("ErrorLogin");
-                                                            
-                                                            if (argument ==null){
-                                                                argument="";
+
+                                                            if (argument == null) {
+                                                                argument = "";
                                                             }
-                                                            
-                                                            String message =obj.Error_login(argument);
-                                                            
+
+                                                            List<String> message = obj.Error_login(argument);
+
                                                         %>
-                                                        <%= message  %>
+                                                        <%= message.get(0)%>
                                                         <%
                                                             sesion.setAttribute("ErrorLogin", "");
                                                         %>
                                                     </p>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary">
-                                                    Ingresar
+                                                    Log in
                                                 </button>
                                             </center>
                                         </form>
@@ -75,13 +81,14 @@
 
                                     <div class="card-footer text-center">
                                         <div class="small">
-                                            <a href="register.jsp">Registrarse</a>
+                                            <a href="register.jsp">Sign in</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
                 </main>
             </div>
             <div id="layoutAuthentication_footer">

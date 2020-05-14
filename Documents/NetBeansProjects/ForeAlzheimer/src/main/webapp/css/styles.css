@@ -480,6 +480,12 @@ mark,
   height: auto;
 }
 
+
+.img-login {
+    max-width: 100%;
+    height: auto;
+}
+
 .img-thumbnail {
   padding: 0.25rem;
   background-color: #fff;
@@ -4384,6 +4390,12 @@ input[type=button].btn-block {
   background-color: #c5d6e3;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
+.card-header-login {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
 .card-header:first-child {
   border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
 }
@@ -4430,7 +4442,7 @@ input[type=button].btn-block {
 
 .card-img,
 .card-img-top {
-  border-top-left-radius: calc(0.25rem - 1px);
+  border-top-left-radius: calc(0.25rem - 1 px);
   border-top-right-radius: calc(0.25rem - 1px);
 }
 

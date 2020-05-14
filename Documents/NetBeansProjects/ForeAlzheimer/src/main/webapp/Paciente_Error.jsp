@@ -9,6 +9,7 @@
 <%@page import="java.util.List"%>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="com.ucatolica.forealzheimer.controlador.FilesController" %>
+<%@include file="/sesion.jsp" %>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -25,7 +26,7 @@ and open the template in the editor.
 
         <title>Fore-Alzheimer</title>
         <link rel="icon" type="image/jpg" href="./assets/img/ICON.png" />
-
+        <script type="text/javascript" src="./js/salir.js" ></script>
 
         <link href="css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
@@ -64,10 +65,10 @@ and open the template in the editor.
                         <i class="fas fa-user fa-fw"></i></a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Configuración</a>
+                        <a class="dropdown-item" href="Profile.jsp">Configuración</a>
                         <!--<a class="dropdown-item" href="#">Activity Log</a>-->
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="login.jsp">Salir</a>
+                        <a class="dropdown-item" onclick='salir();'>Salir</a>
                     </div>
                 </li>
             </ul>
@@ -117,8 +118,7 @@ and open the template in the editor.
                     <div class="sb-sidenav-footer">
                         <div class="small"> Conectado como:</div>
                         <%
-                        HttpSession sesion = request.getSession();
-                        Usuario usr = (Usuario) sesion.getAttribute("usuario");
+                       
                         String name= usr.getNombres()+" "+usr.getApellido1()+" "+usr.getApellido2();
                         System.out.println("index.jsp"+name);
                     %>
